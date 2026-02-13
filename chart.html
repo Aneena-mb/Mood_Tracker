@@ -57,7 +57,7 @@ h1 {
 <script>
 async function loadWeeklyChart() {
 
-    const response = await fetch("http://10.225.78.246:5002/weekly_moods");
+    const response = await fetch("https://mindmate-backend-nt6g.onrender.com//weekly_moods");
     const stored = await response.json();
 
     const ctx = document.getElementById('emotionChart').getContext('2d');

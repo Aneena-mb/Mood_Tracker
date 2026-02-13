@@ -215,7 +215,7 @@ document.querySelector(".release-btn").addEventListener("click", function() {
 
     const content = document.querySelector("textarea").value;
 
-    fetch("http://10.225.78.246:5002/add_journal", {
+    fetch("https://mindmate-backend-nt6g.onrender.com//add_journal", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

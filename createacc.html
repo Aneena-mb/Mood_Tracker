@@ -271,7 +271,7 @@ document.querySelector(".primary-btn").addEventListener("click", function() {
     const password = document.getElementById("password").value;
     const confirm_password = document.getElementById("confirmPassword").value;
 
-    fetch("http://10.225.78.246:5002/register", {
+    fetch("https://mindmate-backend-nt6g.onrender.com//register", {
         method: "POST",
         headers: {"Content-Type":"application/json"},
         body: JSON.stringify({
