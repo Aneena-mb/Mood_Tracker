@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>It's Okay to Feel This Way</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to bottom, #eaf1ff, #f5f7ff);
+    text-align: center;
+    color: #2c3e50;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 18px;
+    color: #555;
+}
+
+.small-text {
+    margin-top: 20px;
+    color: #666;
+    font-size: 15px;
+}
+
+.reset-box {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    margin-top: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.reset-btn {
+    background: linear-gradient(90deg, #6aa9ff, #7d7bff);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.reset-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.section-title {
+    margin-top: 60px;
+    font-size: 26px;
+}
+
+.prompts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.prompt-box {
+    background: white;
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    font-size: 14px;
+}
+
+textarea {
+    width: 100%;
+    height: 180px;
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    resize: none;
+    font-size: 15px;
+}
+
+.release-btn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    background: #dbe7ff;
+    cursor: pointer;
+}
+
+.footer {
+    margin-top: 50px;
+    color: #666;
+    font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>It's Okay to Feel This Way 💙</h1>
+    <p class="subtitle">You don’t have to hide it here.</p>
+    <p>What’s been weighing on your heart today?</p>
+
+    <div class="small-text">
+        <p><strong>Sadness is not weakness.</strong></p>
+        <p>It’s a signal that something matters to you.</p>
+        <p><em>Take your time. There’s no rush.</em></p>
+    </div>
+
+    <div class="reset-box">
+        <h3>Let’s Slow Down Together</h3>
+        <button class="reset-btn" id="resetBtn">Try a 30-Second Reset</button>
+        <p id="breathText" style="margin-top:10px; font-size:14px; color:#777;">
+            Breathe in slowly. Hold. Release gently.
+        </p>
+    </div>
+
+    <h2 class="section-title">Would You Like to Let It Out?</h2>
+    <p>Select a prompt to get started, or just write.</p>
+
+    <div class="prompts">
+        <div class="prompt-box">What happened that made today feel heavy?</div>
+        <div class="prompt-box">Is there something you wish you could say out loud?</div>
+        <div class="prompt-box">What do you need most right now — rest, reassurance, space?</div>
+        <div class="prompt-box">If a friend felt this way, what would you tell her?</div>
+        <div class="prompt-box">What’s one small thing that might comfort you tonight?</div>
+        <div class="prompt-box">Are you being too hard on yourself?</div>
+    </div>
+
+    <textarea placeholder="You can write freely here.
+No judgment. No fixing. Just honesty. 💙"></textarea>
+
+    <button class="release-btn">Release it ✈</button>
+
+    <div class="footer">
+        <p>You’re allowed to have hard days.</p>
+        <p>They don’t define you.</p>
+        <p style="color:#6a8dff;">Even this feeling will pass. 💙</p>
+    </div>
+
+</div>
+
+<script>
+
+const resetBtn = document.getElementById("resetBtn");
+const breathText = document.getElementById("breathText");
+
+let timerInterval;
+let timeLeft = 30;
+let running = false;
+
+resetBtn.addEventListener("click", function() {
+
+    if (running) return;
+
+    running = true;
+    resetBtn.disabled = true;
+    timeLeft = 30;
+
+    timerInterval = setInterval(() => {
+
+        timeLeft--;
+
+        // Breathing cycle every 6 seconds
+        const phase = timeLeft % 6;
+
+        if (phase >= 4) {
+            breathText.innerText = "Inhale slowly...";
+        } 
+        else if (phase >= 2) {
+            breathText.innerText = "Hold...";
+        } 
+        else {
+            breathText.innerText = "Exhale gently...";
+        }
+
+        resetBtn.innerText = "Breathing... " + timeLeft;
+
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            breathText.innerText = "Well Done 💙";
+            resetBtn.innerText = "Completed ✔";
+            running = false;
+
+            setTimeout(() => {
+                resetBtn.innerText = "Try a 30-Second Reset";
+                breathText.innerText = "Breathe in slowly. Hold. Release gently.";
+                resetBtn.disabled = false;
+            }, 3000);
+        }
+
+    }, 1000);
+
+});
+
+
+
+document.querySelector(".release-btn").addEventListener("click", function() {
+
+    const content = document.querySelector("textarea").value;
+
+    fetch("http://10.225.78.246:5002/add_journal", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            mood: "sad",
+            content: content
+        })
+    })
+    .then(res => res.json())
+    .then(data => alert(data.message));
+});
+
+
+</script>
+
+</body>
+</html>

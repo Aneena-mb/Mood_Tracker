@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Journal</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f2ef;
+    text-align: center;
+    color: #3a3a3a;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+h1 {
+    font-size: 32px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #666;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    margin-top: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    text-align: left;
+}
+
+textarea {
+    width: 100%;
+    height: 180px;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    resize: none;
+    font-size: 14px;
+    font-family: inherit;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px 22px;
+    border-radius: 25px;
+    border: none;
+    background: #2c2c2c;
+    color: white;
+    cursor: pointer;
+}
+
+.entry {
+    background: #faf8f5;
+    padding: 15px;
+    border-radius: 12px;
+    margin-top: 15px;
+}
+
+.date {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 6px;
+}
+
+.delete-btn {
+    background: #e57373;
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin-top: 8px;
+}
+
+.empty-msg {
+    color: #888;
+    margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>My Journal 📓</h1>
+    <p class="subtitle">A safe space to unload your thoughts.</p>
+
+    <!-- Write Entry -->
+    <div class="card">
+        <h3>Write Today's Entry</h3>
+        <textarea id="journalInput" placeholder="Write what you're feeling today..."></textarea>
+        <button onclick="saveEntry()">Save Entry</button>
+    </div>
+
+    <!-- Past Entries -->
+    <div class="card">
+        <h3>Past Entries</h3>
+        <div id="entriesContainer"></div>
+    </div>
+
+</div>
+
+<script>
+function saveEntry() {
+
+    const text = document.getElementById("journalInput").value.trim();
+    if (!text) return;
+
+    const date = new Date().toLocaleString();
+
+    let entries = JSON.parse(localStorage.getItem("journalEntries")) || [];
+
+    entries.unshift({
+        date: date,
+        content: text
+    });
+
+    localStorage.setItem("journalEntries", JSON.stringify(entries));
+
+    document.getElementById("journalInput").value = "";
+    loadEntries();
+}
+
+function loadEntries() {
+
+    const container = document.getElementById("entriesContainer");
+    container.innerHTML = "";
+
+    const entries = JSON.parse(localStorage.getItem("journalEntries")) || [];
+
+    if (entries.length === 0) {
+        container.innerHTML = '<p class="empty-msg">No entries yet.</p>';
+        return;
+    }
+
+    entries.forEach((entry, index) => {
+
+        const div = document.createElement("div");
+        div.className = "entry";
+
+        div.innerHTML = `
+            <div class="date">${entry.date}</div>
+            <div>${entry.content}</div>
+            <button class="delete-btn" onclick="deleteEntry(${index})">Delete</button>
+        `;
+
+        container.appendChild(div);
+    });
+}
+
+function deleteEntry(index) {
+
+    let entries = JSON.parse(localStorage.getItem("journalEntries")) || [];
+    entries.splice(index, 1);
+    localStorage.setItem("journalEntries", JSON.stringify(entries));
+    loadEntries();
+}
+
+loadEntries();
+
+
+</script>
+
+</body>
+</html>

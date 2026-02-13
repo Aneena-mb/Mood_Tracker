@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Low Battery Mode Activated</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to bottom, #f4f2ef, #faf8f5);
+    text-align: center;
+    color: #3a3a3a;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 15px;
+    color: #666;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    margin-top: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.primary-btn {
+    background: #2c2c2c;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.small-note {
+    font-size: 13px;
+    color: #777;
+    margin-top: 8px;
+}
+
+.options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.option-box {
+    background: #ffffff;
+    padding: 18px;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+    font-size: 14px;
+}
+
+.section-title {
+    margin-top: 50px;
+    font-size: 22px;
+}
+
+.checkin {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    text-align: left;
+    margin-top: 20px;
+}
+
+textarea {
+    width: 100%;
+    height: 150px;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    resize: none;
+    font-size: 14px;
+}
+
+.footer {
+    margin-top: 60px;
+    font-size: 14px;
+    color: #777;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Low Battery Mode Activated 🔋</h1>
+    <p class="subtitle">Feeling drained is not a failure.</p>
+    <p class="subtitle">It’s a sign you’ve been trying.</p>
+    <p class="subtitle">Rest is productive too. Your body and mind deserve small breaks.</p>
+
+    <!-- Recharge Section -->
+    <div class="card">
+        <button class="primary-btn" id="rechargeBtn" onclick="startRecharge()">Start 1-Minute Recharge ▶</button>
+        <div id="rechargeTimer" class="small-note">01:00</div>
+        <div class="small-note">Just 60 seconds. No pressure.</div>
+    </div>
+
+    <!-- Gentle Reset Options -->
+    <h2 class="section-title">Gentle Reset Options</h2>
+
+    <div class="options">
+        <div class="option-box">💧 Drink water</div>
+        <div class="option-box">↗ Stretch 2m</div>
+        <div class="option-box">take a nap</div>
+        <div class="option-box">🌬 3 Deep breaths</div>
+        <div class="option-box">🙈 Eyes closed 60s</div>
+    </div>
+
+    <!-- What's Draining You -->
+    <h2 class="section-title">What’s Draining You?</h2>
+    <p class="subtitle">Unload your mind here. No one will see this but you.</p>
+
+    <div class="card">
+        <div class="checkin">
+            <div>
+                <h3>Check-in</h3>
+                <ul>
+                    <li>Have you been sleeping enough lately?</li>
+                    <li>Is this physical or emotional tiredness?</li>
+                    <li>What’s one thing you can postpone today?</li>
+                    <li>Are you carrying something that isn’t yours?</li>
+                </ul>
+            </div>
+
+            <div>
+                <textarea placeholder="You don’t need to push through everything. Write what’s making you feel exhausted..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p><strong>You don’t always have to be strong.</strong></p>
+        <p>Sometimes the bravest thing is resting. 💛</p>
+    </div>
+
+</div>
+
+<script>
+let rechargeTime = 60;
+let rechargeInterval = null;
+let rechargeRunning = false;
+
+function updateRechargeDisplay() {
+    const seconds = rechargeTime;
+    document.getElementById("rechargeTimer").innerText =
+        `00:${seconds < 10 ? "0" : ""}${seconds}`;
+}
+
+function startRecharge() {
+
+    const btn = document.getElementById("rechargeBtn");
+
+    if (!rechargeRunning) {
+        rechargeRunning = true;
+        btn.innerText = "Pause ⏸";
+
+        rechargeInterval = setInterval(() => {
+            if (rechargeTime > 0) {
+                rechargeTime--;
+                updateRechargeDisplay();
+            } else {
+                clearInterval(rechargeInterval);
+                rechargeRunning = false;
+                btn.innerText = "Start Again ▶";
+                alert("Recharge complete ✨");
+                rechargeTime = 60;
+                updateRechargeDisplay();
+            }
+        }, 1000);
+
+    } else {
+        rechargeRunning = false;
+        clearInterval(rechargeInterval);
+        btn.innerText = "Resume ▶";
+    }
+}
+
+updateRechargeDisplay();
+</script>
+
+</body>
+</html>

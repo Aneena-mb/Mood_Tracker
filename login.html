@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome Back</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    margin: 0;
+    background: #8fbe63;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+/* HEADER */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 42px;
+    margin-bottom: 8px;
+}
+
+.header p {
+    font-size: 18px;
+    color: #1e3a2f;
+}
+
+/* CARD */
+.card {
+    background: white;
+    width: 100%;
+    max-width: 520px;
+    padding: 40px;
+    border-radius: 28px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.card h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* INPUT GROUP */
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.input-wrapper {
+    position: relative;
+    margin-top: 8px;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 14px 45px 14px 45px;
+    border-radius: 14px;
+    border: 1px solid #ddd;
+    background: #f8f8f8;
+    font-size: 14px;
+    outline: none;
+}
+
+.input-wrapper input:focus {
+    border-color: #8fbe63;
+    background: white;
+}
+
+/* ICONS */
+.icon-left {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.5;
+}
+
+.icon-right {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+/* FORGOT PASSWORD */
+.forgot {
+    text-align: right;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.forgot a {
+    text-decoration: none;
+    color: #1e3a2f;
+}
+
+/* BUTTONS */
+.primary-btn {
+    width: 100%;
+    padding: 14px;
+    background: #8fbe63;
+    border: none;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.primary-btn:hover {
+    background: #7cad52;
+}
+
+.divider {
+    text-align: center;
+    margin: 25px 0;
+    color: #888;
+    position: relative;
+}
+
+.divider:before,
+.divider:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: #ddd;
+}
+
+.divider:before { left: 0; }
+.divider:after { right: 0; }
+
+/* GOOGLE BUTTON */
+.google-btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 16px;
+    border: 1px solid #ddd;
+    background: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.google-btn img {
+    width: 18px;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.signup-text {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.signup-text a {
+    color: #8fbe63;
+    text-decoration: none;
+}
+
+/* BACK LINK */
+.back-home {
+    margin-top: 30px;
+    font-size: 15px;
+    color: #1e3a2f;
+    text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>Welcome Back! 🤍</h1>
+    <p>We're glad to see you again</p>
+</div>
+
+<div class="card">
+    <h2>Log In</h2>
+
+    <!-- Email -->
+    <div class="input-group">
+        <label>Email</label>
+        <div class="input-wrapper">
+            <span class="icon-left">✉️</span>
+            <input type="email" placeholder="your@email.com">
+        </div>
+    </div>
+
+    <!-- Password -->
+    <div class="input-group">
+        <label>Password</label>
+        <div class="input-wrapper">
+            <span class="icon-left">🔒</span>
+            <input type="password" id="password" placeholder="••••••••">
+            <span class="icon-right" onclick="togglePassword()">👁</span>
+        </div>
+        <div class="forgot">
+            <a href="#">Forgot password?</a>
+        </div>
+    </div>
+
+    <button class="primary-btn">Log In</button>
+
+    <div class="divider">or</div>
+
+    <button class="google-btn">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
+        Continue with Google
+    </button>
+
+    <div class="signup-text">
+        Don't have an account? <a href="createacc.html">Sign up</a>
+    </div>
+</div>
+
+<a href="index.html" class="back-home">← Back to home</a>
+
+<script>
+function togglePassword() {
+    const password = document.getElementById("password");
+    password.type = password.type === "password" ? "text" : "password";
+}
+
+
+document.querySelector(".primary-btn").addEventListener("click", function() {
+
+    const email = document.querySelector("input[type='email']").value;
+    const password = document.getElementById("password").value;
+
+    fetch("http://10.225.78.246:5002/login", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({
+            email,
+            password
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.message){
+            alert("Login successful");
+            window.location.href = "index.html";
+        } else {
+            alert(data.error);
+        }
+    });
+
+});
+
+
+
+</script>
+
+</body>
+</html>

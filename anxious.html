@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Let's Slow This Down Together</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to bottom, #e6f4ea, #f2fbf5);
+    text-align: center;
+    color: #1b4332;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+h1 {
+    font-size: 34px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 16px;
+    color: #2d6a4f;
+}
+
+.small-text {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #40916c;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 18px;
+    margin-top: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* ===== Breathing Circle ===== */
+.breath-circle {
+    width: 120px;
+    height: 120px;
+    margin: 20px auto;
+    border-radius: 50%;
+    background: #95d5b2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    transition: transform 4s ease-in-out;
+}
+
+/* Pulse animation */
+.breathing-in {
+    transform: scale(1.4);
+}
+
+.breathing-out {
+    transform: scale(1);
+}
+
+.btn {
+    background: #2d6a4f;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #1b4332;
+}
+
+/* ===== New Dive Button ===== */
+.dive-btn {
+    margin-top: 25px;
+    background: linear-gradient(90deg, #40916c, #1b4332);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+}
+
+.dive-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+}
+
+.section-title {
+    margin-top: 40px;
+    font-size: 22px;
+}
+
+.grounding-list {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.grounding-item {
+    background: #f8fdf9;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+}
+
+textarea {
+    width: 100%;
+    height: 150px;
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #d8f3dc;
+    resize: none;
+    font-size: 14px;
+}
+
+.footer {
+    margin-top: 50px;
+    font-size: 14px;
+    color: #2d6a4f;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Let’s Slow This Down Together 💚</h1>
+    <p class="subtitle">It feels like your mind is racing right now.</p>
+    <p class="subtitle">That’s okay. You’re safe here.</p>
+    <p class="subtitle">Let’s take one small step at a time.</p>
+
+    <div class="small-text">
+        Anxiety is your brain trying to protect you.
+        We just need to gently remind it that everything is okay.
+    </div>
+
+    <!-- Quick Calm Reset -->
+    <div class="card">
+        <h2>Quick Calm Reset</h2>
+
+        <div class="breath-circle" id="breathCircle">🌿</div>
+
+        <p id="breathText">Start 30-Second Breathing</p>
+        <button class="btn" id="startBreathing">Begin</button>
+
+        
+    </div>
+     
+     <!-- New Button -->
+        <button class="dive-btn" onclick="window.location.href='anotherworld.html'">
+            Wanna dive into another world? 🌌
+        </button>
+
+    <!-- Grounding Section -->
+    <div class="card">
+        <h2 class="section-title">Reconnect With The Present 🌱</h2>
+        <p>Let’s anchor you back to the moment.</p>
+
+        <div class="grounding-list">
+            <div class="grounding-item"><strong>5 Things you can see</strong><br>Look around you…</div>
+            <div class="grounding-item"><strong>4 Things you can touch</strong><br>Feel the texture…</div>
+            <div class="grounding-item"><strong>3 Things you can hear</strong><br>Listen closely…</div>
+            <div class="grounding-item"><strong>2 Things you can smell</strong><br>Breathe in…</div>
+            <div class="grounding-item"><strong>1 Thing you're grateful for</strong><br>Hold it in your mind.</div>
+        </div>
+
+        <p style="margin-top:15px; font-size:13px; color:#40916c;">
+            Take your time. There’s no rush.
+        </p>
+    </div>
+
+    <!-- Reflection Section -->
+    <div class="card">
+        <h2>Would You Like to Share What's Causing This?</h2>
+
+        <div style="text-align:left; margin-top:15px;">
+            <ul>
+                <li>What exactly is making you feel anxious right now?</li>
+                <li>Is this fear about something happening now or something that might happen?</li>
+                <li>What is within your control at this moment?</li>
+                <li>What’s the worst-case scenario — and how likely is it really?</li>
+                <li>If this feeling passes in 10 minutes, what would you do next?</li>
+            </ul>
+        </div>
+
+        <textarea placeholder="Write it out here. Sometimes naming the fear makes it smaller. 💚"></textarea>
+
+        <p style="margin-top:10px; font-size:12px; color:#52b788;">
+            Your thoughts are safe here.
+        </p>
+    </div>
+
+    <div class="footer">
+        <p><strong>You are not your anxious thoughts.</strong></p>
+        <p>This moment will pass.</p>
+        <p>And you will handle it. 💚</p>
+    </div>
+
+</div>
+
+<script>
+
+const startBtn = document.getElementById("startBreathing");
+const breathCircle = document.getElementById("breathCircle");
+const breathText = document.getElementById("breathText");
+
+let timer;
+let seconds = 30;
+let running = false;
+
+startBtn.addEventListener("click", function() {
+
+    if (running) return;
+
+    running = true;
+    seconds = 30;
+    startBtn.disabled = true;
+
+    timer = setInterval(() => {
+
+        seconds--;
+
+        // Breathing animation cycle (4s inhale, 4s exhale)
+        if (seconds % 8 >= 4) {
+            breathCircle.classList.add("breathing-in");
+            breathCircle.classList.remove("breathing-out");
+            breathText.innerText = "Inhale slowly...";
+        } else {
+            breathCircle.classList.add("breathing-out");
+            breathCircle.classList.remove("breathing-in");
+            breathText.innerText = "Exhale gently...";
+        }
+
+        if (seconds <= 0) {
+            clearInterval(timer);
+            breathText.innerText = "You did it 💚";
+            breathCircle.classList.remove("breathing-in");
+            breathCircle.classList.remove("breathing-out");
+            startBtn.disabled = false;
+            running = false;
+        }
+
+    }, 1000);
+
+});
+
+
+
+document.querySelector(".btn").addEventListener("click", function() {
+
+    fetch("http://10.225.78.246:5002/breathing_complete", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            mood: "anxious",
+            duration: 30
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+    })
+    .catch(error => {
+        console.error("Error:", error);
+    });
+
+});
+
+
+
+</script>
+
+</body>
+</html>

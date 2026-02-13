@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feeling Overwhelmed?</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #e9e3ef;
+    text-align: center;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 60px 20px;
+}
+
+h1 {
+    font-size: 42px;
+}
+
+/* Cards */
+.card {
+    background: #f3edf8;
+    padding: 30px;
+    border-radius: 22px;
+    margin: 50px 0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.blue { background: #e4ebf5; }
+.green { background: #dff2f1; }
+.yellow { background: #f4eddc; }
+
+/* Input */
+input[type="text"] {
+    width: 100%;
+    padding: 15px;
+    border-radius: 12px;
+    border: 2px solid #d6c9e6;
+    margin-top: 10px;
+}
+
+/* TIMER */
+.timer-circle {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    border: 10px solid #c9d6ea;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 25px auto;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+button {
+    padding: 10px 25px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.primary-btn {
+    background: #3578e5;
+    color: white;
+}
+
+.secondary-btn {
+    background: #d9d9d9;
+}
+
+/* RADIO QUESTIONS */
+.question-group {
+    text-align: left;
+    margin: 20px 0;
+}
+
+.question-title {
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.option {
+    margin: 8px 0;
+}
+
+/* MUSIC BUTTON */
+.music-btn {
+    background: #8fb9a8;
+    color: white;
+    padding: 12px 28px;
+    border-radius: 18px;
+    font-size: 16px;
+    border: none;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+
+.music-btn:hover {
+    background: #79a693;
+    transform: translateY(-2px);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Feeling Overwhelmed Right Now? 🤍</h1>
+
+<!-- SIMPLIFY -->
+<div class="card">
+    <h2>Let's Simplify This 🧩</h2>
+    <p style="text-align:left;">What feels the heaviest right now?</p>
+    <input type="text" placeholder="Type what's on your mind...">
+</div>
+
+<!-- TIMER -->
+<div class="card blue">
+    <h2>One Thing. 25 Minutes. ⏳</h2>
+    <p>Focus on one small step.</p>
+
+    <div class="timer-circle" id="timer">
+        25:00
+    </div>
+
+    <button class="primary-btn" onclick="startPause()">Start</button>
+    <button class="secondary-btn" onclick="resetTimer()">Reset</button>
+</div>
+
+<!-- QUESTIONS -->
+<div class="card yellow">
+    <h2>Gentle Questions 🧠</h2>
+
+    <!-- Question 1 -->
+    <div class="question-group">
+        <div class="question-title">What actually needs attention today?</div>
+        <div class="option"><input type="radio" name="q1"> One urgent task</div>
+        <div class="option"><input type="radio" name="q1"> Multiple small tasks</div>
+        <div class="option"><input type="radio" name="q1"> Nothing urgent</div>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="question-group">
+        <div class="question-title">What can wait until tomorrow?</div>
+        <div class="option"><input type="radio" name="q2"> Emails/messages</div>
+        <div class="option"><input type="radio" name="q2"> Planning tasks</div>
+        <div class="option"><input type="radio" name="q2"> Non-essential work</div>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="question-group">
+        <div class="question-title">What would "good enough" look like?</div>
+        <div class="option"><input type="radio" name="q3"> 70% complete</div>
+        <div class="option"><input type="radio" name="q3"> Basic finished version</div>
+        <div class="option"><input type="radio" name="q3"> Just starting</div>
+    </div>
+
+</div>
+
+ <!-- MUSIC SECTION -->
+<div class="card green">
+    <h2>Wanna hear some music? 🎵</h2>
+    <p>Take a soft pause and reset your mind.</p>
+    <button class="music-btn" onclick="playMusic()">Play Calm Music</button>
+</div>
+
+<div class="footer">
+        <p>Overwhelm doesn't mean you're incapable.</p>
+        <p>It means you're carrying too much at once.</p>
+        <br>
+        <p><strong>You're allowed to set something down. 🌊</strong></p>
+    </div>
+
+
+</div>
+
+<script>
+let timeLeft = 25 * 60; // 25 minutes
+let timerInterval = null;
+let running = false;
+
+function updateDisplay() {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    document.getElementById("timer").innerText =
+        `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+}
+ 
+function playMusic() {
+    const audio = new Audio("https://open.spotify.com/playlist/37i9dQZF1EVHGWrwldPRtj?si=a6f4bd7a213f4f55");
+    audio.play();
+}
+
+
+function startPause() {
+    if (!running) {
+        running = true;
+        document.querySelector(".primary-btn").innerText = "Pause";
+        timerInterval = setInterval(() => {
+            if (timeLeft > 0) {
+                timeLeft--;
+                updateDisplay();
+            } else {
+                clearInterval(timerInterval);
+                alert("Time's up! 🎉");
+            }
+        }, 1000);
+    } else {
+        running = false;
+        document.querySelector(".primary-btn").innerText = "Start";
+        clearInterval(timerInterval);
+    }
+}
+
+function resetTimer() {
+    clearInterval(timerInterval);
+    running = false;
+    timeLeft = 25 * 60;
+    updateDisplay();
+    document.querySelector(".primary-btn").innerText = "Start";
+}
+
+updateDisplay();
+</script>
+
+</body>
+</html>

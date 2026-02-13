@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join Us</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    margin: 0;
+    background: #8fbe63;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+/* HEADER */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 42px;
+    margin-bottom: 8px;
+}
+
+.header p {
+    color: #1e3a2f;
+    font-size: 18px;
+}
+
+/* CARD */
+.card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 520px;
+    padding: 40px;
+    border-radius: 28px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.card h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* INPUT GROUP */
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.input-wrapper {
+    position: relative;
+    margin-top: 8px;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 14px 45px 14px 45px;
+    border-radius: 14px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    outline: none;
+    background: #f8f8f8;
+}
+
+.input-wrapper input:focus {
+    border-color: #8fbe63;
+    background: #fff;
+}
+
+/* ICONS */
+.icon-left {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.5;
+}
+
+.icon-right {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.small-text {
+    font-size: 12px;
+    color: #777;
+    margin-top: 5px;
+}
+
+/* CHECKBOX */
+.checkbox {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+    font-size: 14px;
+}
+
+.checkbox input {
+    margin-right: 10px;
+}
+
+.checkbox a {
+    color: #8fbe63;
+    text-decoration: none;
+}
+
+/* BUTTONS */
+.primary-btn {
+    width: 100%;
+    padding: 14px;
+    background: #8fbe63;
+    border: none;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.primary-btn:hover {
+    background: #7cad52;
+}
+
+.divider {
+    text-align: center;
+    margin: 20px 0;
+    color: #888;
+}
+
+.google-btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 16px;
+    border: 1px solid #ddd;
+    background: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.google-btn img {
+    width: 18px;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.login-text {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.login-text a {
+    color: #8fbe63;
+    text-decoration: none;
+}
+
+.back-home {
+    margin-top: 30px;
+    font-size: 15px;
+    color: #1e3a2f;
+    text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>Join Us! 🌱</h1>
+    <p>Start your journey to emotional wellness</p>
+</div>
+
+<div class="card">
+    <h2>Create Account</h2>
+
+    <!-- Full Name -->
+    <div class="input-group">
+        <label>Full Name</label>
+        <div class="input-wrapper">
+            <span class="icon-left">👤</span>
+            <input type="text" placeholder="Your name">
+        </div>
+    </div>
+
+    <!-- Email -->
+    <div class="input-group">
+        <label>Email</label>
+        <div class="input-wrapper">
+            <span class="icon-left">✉️</span>
+            <input type="email" placeholder="your@email.com">
+        </div>
+    </div>
+
+    <!-- Password -->
+    <div class="input-group">
+        <label>Password</label>
+        <div class="input-wrapper">
+            <span class="icon-left">🔒</span>
+            <input type="password" id="password" placeholder="••••••••">
+            <span class="icon-right" onclick="togglePassword('password')">👁</span>
+        </div>
+        <div class="small-text">At least 8 characters</div>
+    </div>
+
+    <!-- Confirm Password -->
+    <div class="input-group">
+        <label>Confirm Password</label>
+        <div class="input-wrapper">
+            <span class="icon-left">🔒</span>
+            <input type="password" id="confirmPassword" placeholder="••••••••">
+            <span class="icon-right" onclick="togglePassword('confirmPassword')">👁</span>
+        </div>
+    </div>
+
+    <!-- Terms -->
+    <div class="checkbox">
+        <input type="checkbox">
+        <span>I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
+    </div>
+
+    <!-- Button -->
+    <button class="primary-btn">Create Account</button>
+
+    <div class="divider">or</div>
+
+    <!-- Google -->
+    <button class="google-btn">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
+        Sign up with Google
+    </button>
+
+    <div class="login-text">
+        Already have an account? <a href="login.html">Log in</a>
+    </div>
+</div>
+
+<a href="#" class="back-home">← Back to home</a>
+
+<script>
+function togglePassword(id) {
+    const input = document.getElementById(id);
+    input.type = input.type === "password" ? "text" : "password";
+}
+
+
+document.querySelector(".primary-btn").addEventListener("click", function() {
+
+    const full_name = document.querySelector("input[type='text']").value;
+    const email = document.querySelector("input[type='email']").value;
+    const password = document.getElementById("password").value;
+    const confirm_password = document.getElementById("confirmPassword").value;
+
+    fetch("http://10.225.78.246:5002/register", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({
+            full_name,
+            email,
+            password,
+            confirm_password
+        })
+    })
+    .then(res => res.json())
+    .then(data => alert(data.message || data.error));
+});
+
+</script>
+
+</body>
+</html>

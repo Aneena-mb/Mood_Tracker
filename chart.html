@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Emotional Chart</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #e9e3ef;
+    text-align: center;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 60px 20px;
+}
+
+.card {
+    background: #f3edf8;
+    padding: 40px;
+    border-radius: 22px;
+    margin: 40px 0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #666;
+    margin-bottom: 30px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Weekly Emotional Chart 📊</h1>
+    <p class="subtitle">Your mood pattern over the last 7 days</p>
+
+    <div class="card">
+        <canvas id="emotionChart" height="120"></canvas>
+    </div>
+
+</div>
+
+<script>
+async function loadWeeklyChart() {
+
+    const response = await fetch("http://10.225.78.246:5002/weekly_moods");
+    const stored = await response.json();
+
+    const ctx = document.getElementById('emotionChart').getContext('2d');
+
+    const last7Days = [];
+    const emotionValues = [];
+
+    const emotionMap = {
+        "Angry": 0,
+        "Sad": 1,
+        "Tired": 2,
+        "Calm": 3,
+        "Happy": 4,
+        "Anxious": 1,
+        "Overwhelmed": 1
+    };
+
+    const emojiMap = ["😡", "😢", "😴", "😌", "😊"];
+
+    for (let i = 6; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const dateKey = d.toISOString().split("T")[0];
+
+        last7Days.push(
+            d.toLocaleDateString('en-US', { weekday: 'short' })
+        );
+
+        emotionValues.push(
+            emotionMap[stored[dateKey]] ?? null
+        );
+    }
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: last7Days,
+            datasets: [{
+                label: 'Weekly Mood',
+                data: emotionValues,
+                borderRadius: 12
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: {
+                    min: 0,
+                    max: 4,
+                    ticks: {
+                        stepSize: 1,
+                        callback: function(value) {
+                            return emojiMap[value] || "";
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+loadWeeklyChart();
+
+</script>
+
+</body>
+</html>
