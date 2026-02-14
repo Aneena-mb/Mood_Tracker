@@ -71,7 +71,7 @@ document.querySelector(".save-btn").addEventListener("click", function() {
 });
 document.querySelector(".view-btn").addEventListener("click", function() {
 
-    fetch("http://10.225.78.246:5002/get_journals?mood=happy")
+    fetch("https://mindmate-backend-nt6g.onrender.com//get_journals?mood=happy")
     .then(res => res.json())
     .then(data => {
 
